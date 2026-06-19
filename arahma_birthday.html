@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy 23rd Birthday, Arahma! 🎀</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blush:    #F9C4D2;
+      --rose:     #E8718A;
+      --deep:     #C0395A;
+      --petal:    #FDE8EF;
+      --cream:    #FFF6F9;
+      --text:     #3B1A24;
+      --muted:    #A0617A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── CONFETTI CANVAS ── */
+    #confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: radial-gradient(ellipse at 60% 20%, #ffd6e4 0%, var(--cream) 65%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, #f9b8cc88 1.5px, transparent 1.5px),
+        radial-gradient(circle, #e8718a44 1px, transparent 1px);
+      background-size: 48px 48px, 24px 24px;
+      background-position: 0 0, 12px 12px;
+    }
+
+    .age-badge {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(7rem, 20vw, 14rem);
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 2.5px var(--rose);
+      line-height: 1;
+      letter-spacing: -4px;
+      position: relative;
+      animation: floatIn 1s ease both;
+    }
+
+    .age-badge::after {
+      content: '23';
+      position: absolute;
+      inset: 0;
+      color: var(--blush);
+      -webkit-text-stroke: 0;
+      font-size: inherit;
+      clip-path: inset(55% 0 0 0);
+      opacity: 0.35;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--deep);
+      margin-top: 0.5rem;
+      animation: floatIn 1s 0.15s ease both;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 1rem;
+      animation: floatIn 1s 0.3s ease both;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      animation: pulse 2s infinite;
+    }
+
+    /* ── RIBBON DIVIDER ── */
+    .ribbon {
+      text-align: center;
+      padding: 1.5rem 0;
+      font-size: 1.5rem;
+      letter-spacing: 0.5rem;
+      color: var(--rose);
+      background: var(--petal);
+    }
+
+    /* ── WISHES SECTION ── */
+    .wishes {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .section-eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1rem;
+    }
+
+    .wishes h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--deep);
+      margin-bottom: 1.5rem;
+    }
+
+    .wishes p {
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: var(--text);
+      font-weight: 300;
+    }
+
+    /* ── CARDS ── */
+    .cards-section {
+      background: var(--petal);
+      padding: 5rem 2rem;
+    }
+
+    .cards-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      text-align: center;
+      color: var(--deep);
+      margin-bottom: 2.5rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--cream);
+      border-radius: 1.5rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 24px #e8718a1a;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 36px #e8718a2e;
+    }
+
+    .card-icon { font-size: 2.4rem; margin-bottom: 0.75rem; }
+
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── COUNTDOWN TIMER ── */
+    .timer-section {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .timer-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .timer-section p {
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      font-size: 0.95rem;
+    }
+
+    .timer-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .timer-block {
+      background: var(--petal);
+      border-radius: 1.2rem;
+      padding: 1.5rem 1.8rem;
+      min-width: 100px;
+    }
+
+    .timer-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--rose);
+      display: block;
+    }
+
+    .timer-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    footer p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    footer small {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      opacity: 0.5;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<canvas id="confetti"></canvas>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="age-badge">23</div>
+  <h1 class="hero-title">Happy Birthday, Arahma!</h1>
+  <p class="hero-sub">Today the world is better because you're in it ✦</p>
+  <span class="scroll-hint">↓ scroll ↓</span>
+</section>
+
+<!-- RIBBON -->
+<div class="ribbon">🌸 &nbsp; 🎀 &nbsp; 🌸 &nbsp; 🎀 &nbsp; 🌸 &nbsp; 🎀 &nbsp; 🌸</div>
+
+<!-- WISHES -->
+<section class="wishes">
+  <p class="section-eyebrow reveal">A message for you</p>
+  <h2 class="reveal">Twenty-three looks beautiful on you.</h2>
+  <p class="reveal">
+    This is your year to bloom fully — to chase the dreams that keep you up at night,
+    to laugh loudly, to love deeply, and to celebrate every single version of you
+    that got you to this very moment.<br><br>
+    May 23 bring you adventures beyond what you've imagined,
+    kindness that surprises you, and joy that lives in your bones long after today.
+    You deserve every good thing coming your way. 💕
+  </p>
+</section>
+
+<!-- CARDS -->
+<section class="cards-section">
+  <h2 class="reveal">23 Reasons to Celebrate 🎉</h2>
+  <div class="cards">
+    <div class="card reveal">
+      <div class="card-icon">🌸</div>
+      <h3>You're in full bloom</h3>
+      <p>Life at 23 is a garden just beginning its most radiant season.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon">✨</div>
+      <h3>Your light is unique</h3>
+      <p>No one else in the world has your exact spark, story, and spirit.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon">🎀</div>
+      <h3>You are a gift</h3>
+      <p>To everyone lucky enough to know you — today is their celebration too.</p>
+    </div>
+    <div class="card reveal">
+      <div class="card-icon">🌙</div>
+      <h3>Your best is ahead</h3>
+      <p>The most beautiful chapters of your story haven't been written yet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMER -->
+<section class="timer-section">
+  <h2 class="reveal">You've been amazing for…</h2>
+  <p class="reveal">23 years, living and glowing 🌷</p>
+  <div class="timer-grid" id="timer">
+    <div class="timer-block reveal"><span class="timer-num" id="t-years">23</span><span class="timer-label">Years</span></div>
+    <div class="timer-block reveal"><span class="timer-num" id="t-days">—</span><span class="timer-label">Days</span></div>
+    <div class="timer-block reveal"><span class="timer-num" id="t-hours">—</span><span class="timer-label">Hours</span></div>
+    <div class="timer-block reveal"><span class="timer-num" id="t-mins">—</span><span class="timer-label">Minutes</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>"She bloomed not for applause, but because it was her nature."</p>
+  <small>Made with 💗 for Arahma's 23rd Birthday · June 19, 2026</small>
+</footer>
+
+<script>
+  /* ── CONFETTI ── */
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+  const colors = ['#F9C4D2','#E8718A','#C0395A','#FDE8EF','#FFB3C6','#FF6B9D'];
+  const pieces = Array.from({ length: 120 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height - canvas.height,
+    r: Math.random() * 7 + 3,
+    d: Math.random() * 80 + 20,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    tilt: Math.random() * 10 - 10,
+    tiltAngle: 0,
+    tiltSpeed: Math.random() * 0.1 + 0.05,
+    shape: Math.random() > 0.5 ? 'circle' : 'rect',
+  }));
+
+  let angle = 0;
+  let frame = 0;
+
+  function drawConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    angle += 0.005;
+    pieces.forEach(p => {
+      p.tiltAngle += p.tiltSpeed;
+      p.y += (Math.cos(angle + p.d) + 2.5);
+      p.x += Math.sin(angle) * 0.8;
+      p.tilt = Math.sin(p.tiltAngle) * 12;
+      ctx.beginPath();
+      ctx.fillStyle = p.color;
+      if (p.shape === 'circle') {
+        ctx.arc(p.x + p.tilt, p.y, p.r, 0, Math.PI * 2);
+      } else {
+        ctx.rect(p.x + p.tilt, p.y, p.r * 1.5, p.r * 0.8);
+      }
+      ctx.fill();
+      if (p.y > canvas.height) {
+        p.y = -10;
+        p.x = Math.random() * canvas.width;
+      }
+    });
+    frame++;
+    if (frame < 400) requestAnimationFrame(drawConfetti);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  drawConfetti();
+
+  /* ── TIMER ── */
+  function updateTimer() {
+    const totalDays = 23 * 365 + 5; // approx leap days
+    const totalHours = totalDays * 24;
+    const totalMins  = totalHours * 60;
+    document.getElementById('t-days').textContent  = totalDays.toLocaleString();
+    document.getElementById('t-hours').textContent = totalHours.toLocaleString();
+    document.getElementById('t-mins').textContent  = totalMins.toLocaleString();
+  }
+  updateTimer();
+
+  /* ── SCROLL REVEAL ── */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
